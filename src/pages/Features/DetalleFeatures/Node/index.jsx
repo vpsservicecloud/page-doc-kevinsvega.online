@@ -650,15 +650,20 @@ git push -u origin main`}
           ✅ Resultado Final
         </h2>
         <p className="text-gray-700 mb-2">
-          Al completar la guía tendrás un entorno completo para desarrollo y
-          producción:
+          Al completar esta guía habrás desplegado un entorno profesional y
+          robusto para desarrollo y producción, incluyendo respaldo y acceso
+          remoto.
         </p>
         <ul className="list-disc list-inside text-gray-700">
-          <li>React con Vite y CRA funcionando en desarrollo</li>
-          <li>API Node.js gestionada por PM2</li>
-          <li>Nginx como reverse proxy</li>
-          <li>HTTPS activo con Certbot</li>
-          <li>Scripts de automatización para dev/prod</li>
+          <li>Frontend React (Vite y CRA) funcionando local y remoto</li>
+          <li>API Node.js ejecutándose con PM2 (auto reinicio y logs)</li>
+          <li>Nginx configurado como reverse proxy para IP o dominio</li>
+          <li>Acceso desde otros dispositivos usando IP LAN o IP pública</li>
+          <li>Certificados SSL activos con Certbot (Let’s Encrypt)</li>
+          <li>Conexión directa a la VM desde VS Code (Remote - SSH)</li>
+          <li>Repositorio GitHub conectado como respaldo automático</li>
+          <li>Puertos abiertos correctamente en VM y firewall</li>
+          <li>Scripts de automatización y separación de entornos (dev/prod)</li>
         </ul>
       </section>
     </div>
