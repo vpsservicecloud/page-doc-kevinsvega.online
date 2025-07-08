@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { Server, Zap, Package, Globe, ArrowRight } from 'lucide-react';
 
@@ -107,14 +106,14 @@ const Node = () => {
                     </span>
                   ))}
                 </div>
-                  <Link
-                    to={`/explorar/${feature.slug}`}
-                    className="text-green-600 font-semibold hover:text-green-700 transition-colors flex items-center"
-                  >
-                    Explorar
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-              </div> 
+                <Link
+                  to={`/explorar/${feature.slug}`}
+                  className="text-green-600 font-semibold hover:text-green-700 transition-colors flex items-center"
+                >
+                  Explorar
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </div>
             ))}
           </div>
         </div>

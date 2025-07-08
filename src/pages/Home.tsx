@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Code, Database, Server, Shield } from 'lucide-react';
 

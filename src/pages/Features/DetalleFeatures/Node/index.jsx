@@ -1,5 +1,3 @@
-import React from "react";
-
 const FeaturesDetalleFeaturesNodeIndex = () => {
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
@@ -81,9 +79,8 @@ const FeaturesDetalleFeaturesNodeIndex = () => {
         <p className="text-gray-700 mb-2">
           En Azure, esto se hace en la sección{" "}
           <strong>
-            Redes > Grupos de seguridad de red > Reglas de entrada
+            Redes &gt; Grupos de seguridad de red &gt; Reglas de entrada.
           </strong>
-          .
         </p>
 
         <h3 className="text-gray-700 font-medium">

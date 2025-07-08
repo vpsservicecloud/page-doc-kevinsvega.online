@@ -1,5 +1,4 @@
 // src/pages/DetalleFeatures/ServidorNginx.jsx
-import React from "react";
 import { Link } from "react-router-dom";
 import { Server, Zap, Package, Globe, ArrowRight } from "lucide-react";
 const ServidorNginx = () => {
