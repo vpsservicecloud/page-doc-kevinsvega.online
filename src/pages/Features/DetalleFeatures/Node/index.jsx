@@ -111,26 +111,47 @@ sudo ufw enable`}
           otras máquinas.
         </p>
       </section>
-
       <section className="mb-10">
-        <p className="text-gray-700 font-medium">Paso 2: Conexión por SSH</p>
+        <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+          🔑 FASE 2: Ubicación y permisos de la clave SSH
+        </h2>
+
+        <p className="text-gray-700 mb-2">
+          Para establecer una conexión SSH exitosa desde tu equipo local, asegúrate de ubicar correctamente tu archivo de clave `.pem` y asignarle los permisos adecuados.
+        </p>
 
         <h3 className="text-gray-700 font-medium">
-          🔐 Establece los permisos del archivo .pem a solo lectura para el
-          propietario
+          📂 Paso 1: Mover la clave a la carpeta `.ssh`
         </h3>
+        <p className="text-gray-700 mb-2">
+          Ejecuta este comando para mover la clave descargada:
+        </p>
         <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-2">
-          {`chmod 400 ~/Descargas/<NombreDelArchivo_Key>.pem`}
+          {`mv ~/Descargas/<NombreDelArchivo.pem> ~/.ssh/`}
         </pre>
-        <p className="text-gray-700 font-medium">🖥️ Ejemplo real</p>
+
+        <h3 className="text-gray-700 font-medium">
+          🔐 Paso 2: Darle permisos seguros a la clave
+        </h3>
+        <p className="text-gray-700 mb-2">
+          Asigna permisos 400 para que sólo tú puedas leerla:
+        </p>
         <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-2">
-          {`chmod 400 ~/Descargas/vmdesarrollo.pem`}
+          {`chmod 400 ~/.ssh/<NombreDelArchivo.pem>`}
         </pre>
+
+        <p className="text-gray-700">
+          ¡Ahora puedes usar esta clave para conectarte por SSH desde VS Code o la terminal!
+        </p>
+      </section>
+
+      <section className="mb-10">
+        <p className="text-gray-700 font-medium">Paso 3: Conexión por SSH</p>
         <p className="text-gray-700 font-medium">
           💻 Conectas como ubuntu al servidor 20.163.3.250 usando la clave.pem
         </p>
         <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-2">
-          {`ssh -i ~/Descargas/<NombreDelArchivo_.pem> <Usuario-Maquina-Virtual>@<IP-Maquina-Virtual`}
+          {`ssh -i ~/Descargas/<NombreDelArchivo.pem> <Usuario-Maquina-Virtual>@<IP-Maquina-Virtual`}
         </pre>
         <p className="text-gray-700 font-medium">🖥️ Ejemplo real</p>
         <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-2">
@@ -202,7 +223,7 @@ node -v && npm -v`}
   server_name localhost 127.0.0.1 _;
 
   location / {
-    proxy_pass http://localhost:3000;
+    proxy_pass http://localhost:5173;
     proxy_http_version 1.1;
     proxy_set_header Upgrade $http_upgrade;
     proxy_set_header Connection 'upgrade';
@@ -243,6 +264,10 @@ node -v && npm -v`}
           {`sudo systemctl reload nginx`}
         </pre>
       </section>
+      <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+        Si deseas clonar tu repositorio de GitHub, al final tienes las explicaciones
+      </h2>
+      <br />
 
       {/* FASE 4: Acceso desde otra PC o Móvil en Red Local */}
       <section className="mb-10">
@@ -548,6 +573,10 @@ server {
           </ul>
         </section>
         {/* FASE 8: Respaldar el Proyecto en GitHub */}
+        <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+          Subir nuestro proyecto a GitHub desde VISUAL STUDIO CODE
+        </h2>
+        <br />
         <section className="mb-10">
           <h2 className="text-2xl font-semibold text-gray-800 mb-2">
             📦 FASE 8: Subir el proyecto a GitHub para respaldo
@@ -651,6 +680,71 @@ git push -u origin main`}
             {`git clone https://github.com/tuusuario/mi-servidor-react-node.git`}
           </pre>
         </section>
+        <section className="mb-10">
+          <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+            Clonar nuestro proyecto de GitHub  a nuestra MÁQUINA VIRTUAL (VM) y tenerla sincronizada con el repositorio
+          </h2>
+          <br />
+          <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+            ✅ FASE 9: Conexión segura con GitHub usando clave SSH
+          </h2>
+
+          <p className="text-gray-700 mb-2">
+            Usar una clave SSH es ideal si vas a clonar, hacer push o pull desde GitHub varias veces. Aquí te mostramos cómo configurarlo correctamente.
+          </p>
+
+          <h3 className="text-gray-700 font-medium">
+            🛠️ Paso 1: Generar clave SSH en la VM
+          </h3>
+          <p className="text-gray-700 mb-2">En tu servidor, ejecuta:</p>
+          <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-2">
+            {`ssh-keygen -t ed25519 -C "vpsservicecloud"`}
+          </pre>
+          <p className="text-gray-700 mb-2">
+            Presiona enter en todos los pasos para usar la ruta y nombre por defecto:
+            <code className="bg-gray-200 px-1 rounded mx-1">/home/tu-usuario/.ssh/id_ed25519</code>
+          </p>
+
+          <h3 className="text-gray-700 font-medium">
+            📋 Paso 2: Copiar clave pública
+          </h3>
+          <p className="text-gray-700 mb-2">
+            Muestra tu clave pública con:
+          </p>
+          <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-2">
+            {`cat ~/.ssh/id_ed25519.pub`}
+          </pre>
+
+          <p className="text-gray-700 mb-2">Copia el contenido del resultado.</p>
+
+          <h3 className="text-gray-700 font-medium">
+            🔗 Paso 3: Agregar clave a GitHub
+          </h3>
+          <ol className="list-decimal list-inside text-gray-700 mb-4">
+            <li>Abre <a href="https://github.com/settings/keys" className="text-blue-600 underline" target="_blank">https://github.com/settings/keys</a></li>
+            <li>Haz clic en <strong>"New SSH key"</strong></li>
+            <li>Pega la clave pública y guarda</li>
+          </ol>
+
+          <h3 className="text-gray-700 font-medium">
+            📁 Paso 4: Clonar repositorio desde la VM
+          </h3>
+          <p className="text-gray-700 mb-2">
+            Una vez añadida la clave, puedes clonar usando el protocolo SSH:
+          </p>
+          <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-2">
+            {`cd /var/www
+sudo git clone git@github.com:vpsservicecloud/page-doc-kevinsvega.online.git doc.kevinsvega.online`}
+          </pre>
+
+          <h3 className="text-green-700 font-medium">🎯 Ventajas</h3>
+          <ul className="list-disc list-inside text-gray-700">
+            <li>No necesitas ingresar usuario/contraseña en cada acción</li>
+            <li>Mayor seguridad y automatización</li>
+            <li>Ideal para servidores y producción</li>
+          </ul>
+        </section>
+
 
         <h2 className="text-2xl font-semibold text-gray-800 mb-2">
           ✅ Resultado Final
