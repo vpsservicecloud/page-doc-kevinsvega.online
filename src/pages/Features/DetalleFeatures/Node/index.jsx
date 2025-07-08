@@ -1,168 +1,668 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Server, Zap, Package, Globe, ArrowRight } from "lucide-react";
 
-const FeacturesDetalleFeaturesNodeIndex = () => {
-  // Datos para las tarjetas de características
-  const features = [
-    {
-      title: "Configuración NGINX para NODE.JS sin BACKEND",
-      description:
-        "Aprende a configurar NGINX para servir aplicaciones Node.js estáticas o frontends modernos sin necesidad de un backend tradicional, optimizando el rendimiento y la entrega de archivos.",
-      icon: <Server className="h-6 w-6" />,
-      topics: [
-        "Reverse Proxy con NGINX",
-        "Servidor de archivos estáticos (React/Vite/CRA)",
-        "Cache-Control y optimización de recursos",
-        "Redirección y rutas SPA (Single Page Application)",
-        "SSL con Let's Encrypt y Certbot",
-        "Configuraciones para entornos de desarrollo y producción",
-      ],
-    },
-
-    {
-      title: "Configuración NGINX para NODE.JS CON BACKEND",
-      description:
-        "Descubre cómo utilizar NGINX como un servidor proxy inverso eficiente para aplicaciones Node.js con backend, gestionando balanceo de carga, seguridad, entrega de contenido estático y optimización del rendimiento.",
-      icon: <Server className="h-6 w-6" />,
-      topics: [
-        "Reverse Proxy para APIs Node.js",
-        "Balanceo de carga con múltiples instancias",
-        "Manejo de archivos estáticos desde Node o NGINX",
-        "SSL/TLS con Certbot para HTTPS seguro",
-        "Redirección HTTP → HTTPS",
-        "Logs de acceso y errores para debugging",
-      ],
-    },
-
-    {
-      title: "Configuración NGINX para NODE.JS CON BACKEND y para API",
-      description:
-        "Aprende a configurar NGINX como proxy inverso para APIs construidas con Node.js, incluyendo rutas REST, seguridad, compresión, manejo de CORS y entrega eficiente de respuestas JSON.",
-      icon: <Package className="h-6 w-6" />,
-      topics: [
-        "Proxy para rutas RESTful",
-        "Soporte para CORS y headers personalizados",
-        "Compresión GZIP para respuestas JSON",
-        "Logs y monitoreo de endpoints",
-        "Manejo de errores 4xx y 5xx",
-        "SSL/TLS para proteger la API",
-      ],
-    },
-  ];
-
+const FeaturesDetalleFeaturesNodeIndex = () => {
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-green-50 to-green-100 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <div className="bg-green-600 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
-              <Server className="h-10 w-10 text-white" />
-            </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Node.js
-            </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              Entorno de ejecución para JavaScript del lado del servidor.
-              Escalable, eficiente y perfecto para aplicaciones en tiempo real.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-green-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors">
-                Comenzar Tutorial
-              </button>
-              <button className="bg-white text-green-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors border border-green-200">
-                Ver Ejemplos
-              </button>
-            </div>
-          </div>
-        </div>
+    <div className="max-w-5xl mx-auto px-4 py-10">
+      <h1 className="text-4xl font-bold text-green-700 mb-6">
+        Guía Completa: Servidor Node.js + React en Maquinas Virtuales (VM)
+      </h1>
+
+      {/* Descripción General */}
+      <section className="mb-10">
+        <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+          📋 Descripción General
+        </h2>
+        <p className="text-gray-700 mb-2">
+          Esta guía cubre la configuración completa de un servidor optimizado
+          para desarrollo y producción usando Node.js, React y Nginx en una
+          máquina virtual (VM).
+        </p>
+        <ul className="list-disc list-inside text-gray-700">
+          <li>Ubuntu Server 22.04/24.04 LTS</li>
+          <li>Node.js (LTS) + npm</li>
+          <li>React (Vite y CRA)</li>
+          <li>Nginx como reverse proxy</li>
+          <li>PM2 para gestión de procesos</li>
+          <li>Certificados SSL</li>
+          <li>Automatización y producción</li>
+        </ul>
+      </section>
+      {/* FASE 1: Configuración en Azure */}
+      <section className="mb-10">
+        <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+          🏗️ FASE 1: Configuración en Azure
+        </h2>
+        <p className="text-gray-700 mb-2 font-medium">
+          Paso 1: Crear la Máquina Virtual
+        </p>
+        <ul className="list-disc list-inside text-gray-700 mb-2">
+          <li>Imagen: Ubuntu Server 22.04 o 24.04 LTS</li>
+          <li>Tamaño: B2s (dev) / B4als (prod)</li>
+          <li>Disco: SSD Premium ≥ 128GB</li>
+          <li>Puertos: 22, 80, 443, 3000-3010</li>
+          <li>IP: Pública y estática</li>
+        </ul>
+      </section>
+      {/* FASE 1.1: Apertura de Puertos */}
+      <section className="mb-10">
+        <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+          🔓 FASE 1.1: Apertura de Puertos
+        </h2>
+
+        <p className="text-gray-700 mb-2">
+          Para permitir conexiones externas a tu servidor (desde el navegador o
+          herramientas externas), debes asegurarte de abrir los siguientes
+          puertos en dos niveles:
+        </p>
+
+        <h3 className="text-gray-700 font-medium">
+          🌐 1. Desde el panel del proveedor (Azure, AWS, etc.)
+        </h3>
+        <p className="text-gray-700 mb-2">
+          En el firewall de red de la plataforma, asegúrate de permitir los
+          siguientes puertos:
+        </p>
+
+        <ul className="list-disc list-inside text-gray-700 mb-4">
+          <li>
+            <strong>22</strong> – SSH (solo para conexión remota)
+          </li>
+          <li>
+            <strong>80</strong> – HTTP (sitios web sin cifrar)
+          </li>
+          <li>
+            <strong>443</strong> – HTTPS (sitios seguros)
+          </li>
+          <li>
+            <strong>3000-3010</strong> – Para desarrollo con Node.js, Vite, etc.
+          </li>
+        </ul>
+
+        <p className="text-gray-700 mb-2">
+          En Azure, esto se hace en la sección{" "}
+          <strong>
+            Redes > Grupos de seguridad de red > Reglas de entrada
+          </strong>
+          .
+        </p>
+
+        <h3 className="text-gray-700 font-medium">
+          🛡️ 2. Desde el sistema operativo (usando UFW)
+        </h3>
+        <p className="text-gray-700 mb-2">
+          Si usas <code>ufw</code> como firewall en Ubuntu, ejecuta:
+        </p>
+
+        <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-2">
+          {`sudo ufw allow OpenSSH
+sudo ufw allow 80
+sudo ufw allow 443
+sudo ufw allow 3000:3010/tcp
+sudo ufw enable`}
+        </pre>
+
+        <p className="text-gray-700 mb-2">Verifica el estado del firewall:</p>
+        <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-4">
+          {`sudo ufw status numbered`}
+        </pre>
+
+        <p className="text-green-700 font-medium">
+          ✅ Si todo está bien, deberías poder acceder a tu aplicación desde
+          otras máquinas.
+        </p>
       </section>
 
-      {/* Features */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Características Principales
-            </h2>
-            <p className="text-xl text-gray-600">
-              Todo lo que necesitas para el desarrollo del lado del servidor
-            </p>
-          </div>
+      <section className="mb-10">
+        <p className="text-gray-700 font-medium">Paso 2: Conexión por SSH</p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {features.map((feature, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-xl shadow-lg border border-gray-100 p-8 hover:shadow-xl transition-shadow"
-              >
-                <div className="flex items-center mb-4">
-                  <div className="bg-green-100 rounded-lg p-3 mr-4">
-                    {feature.icon}
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900">
-                    {feature.title}
-                  </h3>
-                </div>
-                <p className="text-gray-600 mb-6">{feature.description}</p>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {feature.topics.map((topic, topicIndex) => (
-                    <span
-                      key={topicIndex}
-                      className="bg-green-50 text-green-600 px-3 py-1 rounded-full text-sm font-medium"
-                    >
-                      {topic}
-                    </span>
-                  ))}
-                </div>
-                <Link
-                  to={`/explorar/${feature.title
-                    .toLowerCase()
-                    .replace(/\s+/g, "-")}`}
-                  className="text-green-600 font-semibold hover:text-green-700 transition-colors flex items-center"
-                >
-                  Explorar
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
+        <h3 className="text-gray-700 font-medium">
+          🔐 Establece los permisos del archivo .pem a solo lectura para el
+          propietario
+        </h3>
+        <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-2">
+          {`chmod 400 ~/Descargas/<NombreDelArchivo_Key>.pem`}
+        </pre>
+        <p className="text-gray-700 font-medium">🖥️ Ejemplo real</p>
+        <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-2">
+          {`chmod 400 ~/Descargas/vmdesarrollo.pem`}
+        </pre>
+        <p className="text-gray-700 font-medium">
+          💻 Conectas como ubuntu al servidor 20.163.3.250 usando la clave.pem
+        </p>
+        <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-2">
+          {`ssh -i ~/Descargas/<NombreDelArchivo_.pem> <Usuario-Maquina-Virtual>@<IP-Maquina-Virtual`}
+        </pre>
+        <p className="text-gray-700 font-medium">🖥️ Ejemplo real</p>
+        <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-2">
+          {`ssh -i ~/Descargas/maquinavirtualazure_key.pem maquinavirtualazure@22.796.10.265`}
+        </pre>
       </section>
 
-      {/* Navigation */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h2 className="text-2xl font-bold text-gray-900 mb-8">
-              Explorar Otras Tecnologías
-            </h2>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link
-                to="/python"
-                className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+      {/* FASE 2: Instalación del Entorno Base */}
+      <section className="mb-10">
+        <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+          🚀 FASE 2: Instalación del Entorno Base
+        </h2>
+        <p className="text-gray-700 font-medium">
+          Paso 3: Actualizar el sistema
+        </p>
+        <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-2">
+          {`sudo apt update && sudo apt upgrade -y`}
+        </pre>
+
+        <p className="text-gray-700 font-medium">
+          Paso 4: Instalar dependencias base
+        </p>
+        <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-2">
+          {`sudo apt install curl wget git build-essential nginx -y`}
+        </pre>
+
+        <p className="text-gray-700 font-medium">
+          Paso 5: Instalar Node.js LTS
+        </p>
+        <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-2">
+          {`curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+sudo apt install -y nodejs
+node -v && npm -v`}
+        </pre>
+      </section>
+
+      {/* FASE 3: Configuración de NGINX */}
+      <section className="mb-10">
+        <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+          ⚙️ FASE 3: Configuración de Nginx Para Desarrollo
+        </h2>
+        <p className="text-gray-700 mb-2">
+          Configura Nginx como reverse proxy tanto para desarrollo como
+          producción:
+        </p>
+        <p className="text-gray-700 font-medium">
+          Archivo: <code>/etc/nginx/sites-available/nombre-del-archivo</code>
+        </p>
+
+        <p className="text-gray-700 font-medium">
+          Crea o modifica un "bloque de servidor", que define cómo debe actuar
+          Nginx al recibir solicitudes para cierto dominio.
+        </p>
+        <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-2">
+          {`sudo nano /etc/nginx/sites-available/"nombre-del-archivo"`}
+        </pre>
+        <p className="text-gray-700 font-medium">
+          Pegamos la siguiente Configuración.
+        </p>
+        <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-4">
+          {`server {
+  listen 80;
+  server_name localhost 127.0.0.1 _;
+
+  location / {
+    proxy_pass http://localhost:3000;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
+  }
+}
+`}
+        </pre>
+        <p className="text-gray-700 font-medium">Guardamos la configuración:</p>
+        <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-4">
+          {`Control + O, -> Enter -> Control + X `}
+        </pre>
+        <p className="text-gray-700 font-medium">
+          Creamos un enlace simbólico (alias) del archivo de configuración:
+        </p>
+        <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-4">
+          {`sudo ln -s /etc/nginx/sites-available/nombre-del-archivo /etc/nginx/sites-enabled/`}
+        </pre>
+
+        <p className="text-gray-700 font-medium">
+          Prueba la configuración de Nginx y verifica que no haya errores de
+          sintaxis:
+        </p>
+        <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-4">
+          {`sudo nginx -t`}
+        </pre>
+
+        <p className="text-gray-700 font-medium">Si todo está bien, verás:</p>
+        <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-4">
+          {`nginx: configuration file /etc/nginx/nginx.conf test is successful`}
+        </pre>
+
+        <p className="text-gray-700 font-medium">
+          Recarga Nginx sin reiniciar el servicio completo:
+        </p>
+        <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-4">
+          {`sudo systemctl reload nginx`}
+        </pre>
+      </section>
+
+      {/* FASE 4: Acceso desde otra PC o Móvil en Red Local */}
+      <section className="mb-10">
+        <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+          📡 FASE 4: Acceso desde otra PC o Móvil en Red Local
+        </h2>
+
+        <p className="text-gray-700 mb-2">
+          Si deseas probar tu aplicación desde otro dispositivo en la misma red
+          (como tu celular o laptop), puedes hacerlo fácilmente.
+        </p>
+
+        <h3 className="text-gray-700 font-medium">
+          🔎 Paso 1: Identificar la IP privada del servidor
+        </h3>
+        <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-2">
+          {`ip a | grep inet`}
+        </pre>
+        <p className="text-gray-700 mb-2">
+          Busca una dirección del tipo <code>192.168.x.x</code> o{" "}
+          <code>10.x.x.x</code> (es la IP LAN del servidor).
+        </p>
+
+        <h3 className="text-gray-700 font-medium">
+          📱 Paso 2: Acceder desde otro dispositivo
+        </h3>
+        <p className="text-gray-700 mb-2">
+          En el navegador de tu otro dispositivo, accede con la IP:
+        </p>
+        <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-2">
+          {`http://192.168.1.100`}
+        </pre>
+        <p className="text-gray-700 mb-2">
+          Si configuraste un puerto (por ejemplo 3000 o 5173), incluye el
+          puerto:
+        </p>
+        <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-2">
+          {`http://192.168.1.100:3000`}
+        </pre>
+
+        <h3 className="text-gray-700 font-medium">
+          🌐 Paso 3 (Opcional): Configurar dominio interno para pruebas
+        </h3>
+        <p className="text-gray-700 mb-2">
+          Puedes usar un nombre de dominio falso (como{" "}
+          <code>dev.miapp.local</code>) para no depender de la IP:
+        </p>
+        <ul className="list-disc list-inside text-gray-700 mb-4">
+          <li>
+            En Windows: Edita <code>C:\Windows\System32\drivers\etc\hosts</code>
+          </li>
+          <li>
+            En Linux/Mac: Edita <code>/etc/hosts</code>
+          </li>
+        </ul>
+        <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-4">
+          {`192.168.1.100   dev.miapp.local`}
+        </pre>
+        <p className="text-gray-700">
+          Ahora podrás ingresar a{" "}
+          <a className="text-blue-600 underline">http://dev.miapp.local</a>{" "}
+          desde cualquier navegador en tu red local.
+        </p>
+        <p className="text-yellow-600 mt-2 font-medium">
+          ⚠️ Esta técnica solo funciona dentro de tu red local. No es válida
+          para accesos desde internet.
+        </p>
+      </section>
+
+      <section className="mb-10">
+        <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+          🌐 FASE 5: Nginx para Producción (Frontend React)
+        </h2>
+        <p className="text-gray-700 mb-2">
+          Esta configuración es ideal para servir tu aplicación React en
+          producción con HTTPS y buenas prácticas.
+        </p>
+
+        <p className="text-gray-700 font-medium">
+          Paso 6: Generar build de React
+        </p>
+        <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-2">
+          {`npm run build
+sudo mkdir -p /var/www/nombredelacarpeta
+sudo cp -r dist/* /var/www/nombredelacarpeta`}
+        </pre>
+
+        <p className="text-gray-700 font-medium">
+          Editamos el archivo de configuración del sitio:
+        </p>
+        <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-4">
+          {`sudo nano /etc/nginx/sites-available/"nombre-del-archivo"`}
+        </pre>
+
+        <p className="text-gray-700 font-medium">
+          Archivo:{" "}
+          <code>/etc/nginx/sites-available/node.kevinsvega.online</code>
+        </p>
+        <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-4">
+          {`# Redirección HTTP a HTTPS
+server {
+  listen 80;
+  server_name node.kevinsvega.online www.node.kevinsvega.online;
+  return 301 https://$host$request_uri;
+}
+
+# Servidor HTTPS principal
+server {
+  listen 443 ssl;
+  server_name node.kevinsvega.online www.node.kevinsvega.online;
+
+  # Certificados SSL (usando Certbot)
+  ssl_certificate /etc/letsencrypt/live/node.kevinsvega.online/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/node.kevinsvega.online/privkey.pem;
+
+  # Carpeta raíz del frontend
+  root /var/www/node.kevinsvega.online;
+  index index.html;
+
+  # Configuración de rutas SPA
+  location / {
+    try_files $uri /index.html;
+  }
+
+  # Cache estático para recursos
+  location ~* \\\.(?:ico|css|js|gif|jpe?g|png|woff2?|eot|ttf|otf|svg)$ {
+    expires 6M;
+    access_log off;
+    add_header Cache-Control "public";
+  }
+
+  # Seguridad básica
+  location ~ /\\\. {
+    deny all;
+  }
+}
+`}
+        </pre>
+        <p className="text-gray-700 font-medium">Guardamos la configuración:</p>
+        <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-4">
+          {`Control + O, -> Enter -> Control + X `}
+        </pre>
+        <p className="text-gray-700 font-medium">
+          Hace un test de la configuración de Nginx, Verifica que no haya
+          errores de sintaxis:
+        </p>
+        <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-4">
+          {`sudo nginx -t`}
+        </pre>
+
+        <p className="text-gray-700 font-medium">Si todo está bien, verás:</p>
+        <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-4">
+          {`nginx: configuration file /etc/nginx/nginx.conf test is successful`}
+        </pre>
+
+        <p className="text-gray-700 font-medium">
+          Recarga Nginx sin reiniciar el servicio completo:
+        </p>
+        <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-4">
+          {`sudo systemctl reload nginx`}
+        </pre>
+      </section>
+      {/* Resultado Final */}
+      <section className="mb-10">
+        {/* FASE 4: Certificados SSL */}
+        <section className="mb-10">
+          <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+            🔒 FASE 6: Certificados SSL
+          </h2>
+
+          <p className="text-gray-700 font-medium">
+            Paso 6: Instalar Certbot y el plugin para Nginx
+          </p>
+          <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-2">
+            {`sudo apt install certbot python3-certbot-nginx -y`}
+          </pre>
+
+          <p className="text-gray-700 font-medium">
+            Paso 7: Generar certificados SSL
+          </p>
+          <p className="text-gray-700 mb-2">
+            Puedes generar un certificado para un dominio único o para múltiples
+            subdominios en una sola línea:
+          </p>
+
+          <ul className="list-disc list-inside text-gray-700 mb-4">
+            <li>
+              <strong>Para un solo dominio:</strong>
+            </li>
+          </ul>
+          <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-4">
+            {`sudo certbot --nginx -d tudominio.com`}
+          </pre>
+
+          <ul className="list-disc list-inside text-gray-700 mb-4">
+            <li>
+              <strong>Para múltiples dominios o subdominios:</strong>
+            </li>
+          </ul>
+          <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-4">
+            {`sudo certbot --nginx -d tudominio.com -d sub.tudominio.com`}
+          </pre>
+
+          <p className="text-gray-700 mb-2">
+            Esto solicitará un certificado SSL válido desde Let's Encrypt y
+            configurará automáticamente Nginx para servir tu sitio con{" "}
+            <strong>HTTPS</strong>.
+          </p>
+
+          <p className="text-green-700 font-medium mt-2">
+            🔐 Una vez completado, podrás acceder de forma segura a:
+          </p>
+          <ul className="list-disc list-inside text-gray-700">
+            <li>
+              <a>https://tudominio.com</a>
+            </li>
+            <li>
+              <a>https://sub.tudominio.com</a>
+            </li>
+          </ul>
+
+          <p className="text-gray-700 mt-2">
+            Ambos mostrarán el <strong>candado de seguridad válido 🔒</strong>{" "}
+            en el navegador, indicando que la conexión es cifrada y segura.
+          </p>
+        </section>
+        {/* FASE 7: Usar VS Code con la VM Remota */}
+        <section className="mb-10">
+          <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+            💻 FASE 7: Conectar VS Code a la VM con Remote - SSH
+          </h2>
+
+          <p className="text-gray-700 mb-2">
+            Esta configuración te permite editar archivos, acceder a la terminal
+            y trabajar directamente dentro de la máquina virtual desde Visual
+            Studio Code en tu PC local.
+          </p>
+
+          <h3 className="text-gray-700 font-medium">
+            🔌 Paso 1: Instalar la extensión “Remote - SSH”
+          </h3>
+          <p className="text-gray-700 mb-2">
+            Abre Visual Studio Code y busca la extensión{" "}
+            <strong>Remote - SSH</strong> en la marketplace. Instálala:
+          </p>
+          <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-2">
+            {`Extensiones > Remote - SSH > Instalar`}
+          </pre>
+
+          <h3 className="text-gray-700 font-medium">
+            🔐 Paso 2: Asegúrate de tener tu clave .pem o acceso SSH listo
+          </h3>
+          <p className="text-gray-700 mb-2">
+            Debes tener el archivo `.pem` si usas Azure o AWS, o acceso por
+            clave pública si configuraste SSH manualmente.
+          </p>
+
+          <h3 className="text-gray-700 font-medium">
+            🛠️ Paso 3: Configurar conexión en VS Code
+          </h3>
+          <p className="text-gray-700 mb-2">Presiona:</p>
+          <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-2">
+            {`F1 → Remote-SSH: Connect to Host...`}
+          </pre>
+          <p className="text-gray-700 mb-2">
+            Luego selecciona: <strong>“Add New SSH Host…”</strong> y escribe la
+            línea de conexión SSH. Ejemplo:
+          </p>
+
+          <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-2">
+            {`ssh -i ~/.ssh/miarchivo.pem ubuntu@20.150.1.50`}
+          </pre>
+
+          <p className="text-gray-700 mb-2">
+            VS Code te preguntará dónde guardar esto. Elige:
+          </p>
+          <ul className="list-disc list-inside text-gray-700 mb-4">
+            <li>
+              <code>~/.ssh/config</code> para Linux/macOS
+            </li>
+            <li>
+              <code>C:\Users\TuUsuario\.ssh\config</code> en Windows
+            </li>
+          </ul>
+
+          <h3 className="text-gray-700 font-medium">
+            📁 Paso 4: Accede y edita tus archivos como si estuvieran locales
+          </h3>
+          <p className="text-gray-700 mb-2">
+            Una vez conectado, verás un icono verde en la parte inferior
+            izquierda de VS Code indicando que estás dentro de la VM.
+          </p>
+          <p className="text-gray-700 mb-2">
+            Puedes usar la terminal integrada, instalar extensiones, abrir
+            proyectos, correr comandos `npm run dev`, etc.
+          </p>
+
+          <h3 className="text-green-700 font-medium">🎯 Ventajas</h3>
+          <ul className="list-disc list-inside text-gray-700">
+            <li>No necesitas usar SFTP o copiar archivos</li>
+            <li>Todo el entorno corre directamente en tu servidor remoto</li>
+            <li>Ideal para trabajar desde cualquier parte</li>
+          </ul>
+        </section>
+        {/* FASE 8: Respaldar el Proyecto en GitHub */}
+        <section className="mb-10">
+          <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+            📦 FASE 8: Subir el proyecto a GitHub para respaldo
+          </h2>
+
+          <p className="text-gray-700 mb-2">
+            Es fundamental tener una copia remota de tu proyecto en GitHub,
+            especialmente si tu servidor es temporal, de prueba o estás usando
+            una VM que puede expirar.
+          </p>
+
+          <h3 className="text-gray-700 font-medium">
+            ✅ Paso 1: Crear un repositorio en GitHub
+          </h3>
+          <ul className="list-disc list-inside text-gray-700 mb-4">
+            <li>
+              Ve a{" "}
+              <a
+                href="https://github.com/new"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 underline"
               >
-                Python
-              </Link>
-              <Link
-                to="/laravel"
-                className="bg-red-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-700 transition-colors"
-              >
-                Laravel
-              </Link>
-              <Link
-                to="/nginx"
-                className="bg-gray-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-700 transition-colors"
-              >
-                Nginx
-              </Link>
-            </div>
-          </div>
-        </div>
+                https://github.com/new
+              </a>
+            </li>
+            <li>
+              Elige un nombre para tu proyecto, por ejemplo{" "}
+              <code>mi-servidor-react-node</code>
+            </li>
+            <li>Selecciona "Privado" si no quieres que otros lo vean</li>
+            <li>No marques ninguna opción de inicialización</li>
+            <li>Haz clic en "Create repository"</li>
+          </ul>
+
+          <h3 className="text-gray-700 font-medium">
+            📁 Paso 2: Inicializar Git en tu proyecto
+          </h3>
+          <p className="text-gray-700 mb-2">
+            Desde la terminal en tu VM (o en VS Code con Remote SSH):
+          </p>
+          <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-2">
+            {`cd ~/mi-proyecto
+git init
+git add .
+git commit -m "Primer commit: proyecto base Node.js + React + Nginx"`}
+          </pre>
+
+          <h3 className="text-gray-700 font-medium">
+            🔗 Paso 3: Conectar con el repositorio remoto
+          </h3>
+          <p className="text-gray-700 mb-2">
+            Usa la URL de tu repo en GitHub, por ejemplo:
+          </p>
+          <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-2">
+            {`git remote add origin https://github.com/tuusuario/mi-servidor-react-node.git`}
+          </pre>
+
+          <h3 className="text-gray-700 font-medium">
+            🚀 Paso 4: Subir los archivos al repositorio
+          </h3>
+          <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-2">
+            {`git branch -M main
+git push -u origin main`}
+          </pre>
+
+          <h3 className="text-gray-700 font-medium">🛡️ Recomendaciones</h3>
+          <ul className="list-disc list-inside text-gray-700">
+            <li>
+              Asegúrate de tener un <code>.gitignore</code> con:
+              <ul className="list-disc list-inside ml-5">
+                <li>
+                  <code>node_modules/</code>
+                </li>
+                <li>
+                  <code>dist/</code>
+                </li>
+                <li>
+                  <code>.env</code>
+                </li>
+                <li>
+                  <code>.DS_Store</code> (macOS)
+                </li>
+              </ul>
+            </li>
+            <li>
+              Usa <strong>commits frecuentes</strong> mientras desarrollas:{" "}
+              <code>git add . && git commit -m "avance X"</code>
+            </li>
+            <li>
+              Siempre haz <code>git push</code> al terminar una sesión de
+              desarrollo
+            </li>
+          </ul>
+
+          <h3 className="text-green-700 font-medium mt-4">
+            🎉 Con esto, aunque tu VM falle, siempre podrás clonar tu proyecto
+            en cualquier servidor con:
+          </h3>
+          <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto">
+            {`git clone https://github.com/tuusuario/mi-servidor-react-node.git`}
+          </pre>
+        </section>
+
+        <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+          ✅ Resultado Final
+        </h2>
+        <p className="text-gray-700 mb-2">
+          Al completar la guía tendrás un entorno completo para desarrollo y
+          producción:
+        </p>
+        <ul className="list-disc list-inside text-gray-700">
+          <li>React con Vite y CRA funcionando en desarrollo</li>
+          <li>API Node.js gestionada por PM2</li>
+          <li>Nginx como reverse proxy</li>
+          <li>HTTPS activo con Certbot</li>
+          <li>Scripts de automatización para dev/prod</li>
+        </ul>
       </section>
     </div>
   );
 };
 
-export default FeacturesDetalleFeaturesNodeIndex;
+export default FeaturesDetalleFeaturesNodeIndex;

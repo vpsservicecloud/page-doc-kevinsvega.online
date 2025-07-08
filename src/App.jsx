@@ -13,7 +13,7 @@ import Node from "./pages/Node";
 
 // --- PASO 1: Importa tu nuevo componente ---
 // Se asume que guardaste el archivo en: pages/Features/DetalleFeatures/Node/
-import FeacturesDetalleFeaturesNodeIndex from "./pages/Features/DetalleFeatures/Node/index";
+import FeaturesDetalleFeaturesNodeIndex from "./pages/Features/DetalleFeatures/Node/index";
 
 // Páginas de características específicas (si aún las usas)
 import ExpressJS from "./pages/Features/ExpressJS";
@@ -44,12 +44,12 @@ function App() {
           {/* rutas principales */}
           <Route
             path="/explorar/servidor-nginx-node"
-            element={<FeacturesDetalleFeaturesNodeIndex />}
+            element={<ServidorNginx />}
           />
           {/* rutas auxiliares */}
           <Route
             path="/explorar/configuración-nginx-para-node.js-sin-backend"
-            element={<ServidorNginx />}
+            element={<FeaturesDetalleFeaturesNodeIndex />}
           />
         </Routes>
       </div>
