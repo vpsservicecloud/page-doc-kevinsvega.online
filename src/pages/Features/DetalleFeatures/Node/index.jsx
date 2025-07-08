@@ -173,9 +173,15 @@ node -v && npm -v`}
           ⚙️ FASE 3: Configuración de Nginx Para Desarrollo
         </h2>
         <p className="text-gray-700 mb-2">
-          Configura Nginx como reverse proxy tanto para desarrollo como
-          producción:
+          Configura Nginx como reverse proxy tanto para desarrollo:
         </p>
+        <p className="text-gray-700 font-medium">
+          Elimina el sitio default para evitar duplicado (si no lo necesitas).
+        </p>
+        <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-2">
+          {`sudo rm /etc/nginx/sites-enabled/default`}
+        </pre>
+
         <p className="text-gray-700 font-medium">
           Archivo: <code>/etc/nginx/sites-available/nombre-del-archivo</code>
         </p>
@@ -185,7 +191,7 @@ node -v && npm -v`}
           Nginx al recibir solicitudes para cierto dominio.
         </p>
         <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-2">
-          {`sudo nano /etc/nginx/sites-available/"nombre-del-archivo"`}
+          {`sudo nano /etc/nginx/sites-available/"nombre-del-archivo`}
         </pre>
         <p className="text-gray-700 font-medium">
           Pegamos la siguiente Configuración.
