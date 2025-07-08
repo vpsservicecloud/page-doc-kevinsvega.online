@@ -7,18 +7,51 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+# Dependencias
+node_modules/
+
+# Builds
+dist/
+dist-ssr/
+build/
+
+# Archivos de entorno
+.env
+.env.*.local
 *.local
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# Archivos temporales del sistema operativo
 .DS_Store
+Thumbs.db
+
+# Configuración del editor
+.vscode/
+!.vscode/extensions.json
+.idea/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# Archivos de PM2 (si usas PM2 logs o ecosystem)
+pids/
+*.pid
+*.seed
+*.pid.lock
+ecosystem.config.js
+
+# Archivos de testing
+coverage/
+*.lcov
+
+# Archivos de lock innecesarios
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Otros
+*.bak
+*.tmp
+*.old
+*.orig
